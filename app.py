@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Set up OpenAI API key
-openai.api_key = "PUt your OPENAI ke"
+#openai.api_key = "PUt your OPENAI ke"
 
 if not openai.api_key:
     logging.error("OpenAI API key is not set.")
