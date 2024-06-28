@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Generator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+   
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Text Generator</h1>
+        <textarea id="prompt" rows="4" placeholder="Type your message here..."></textarea><br>
+        <button onclick="sendPrompt()">Send</button>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        async function sendPrompt() {
+            const prompt = document.getElementById('prompt').value;
+            const responseElement = document.getElementById('response');
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    responseElement.textContent = `Error: ${data.error}`;
+                } else {
+                    responseElement.textContent = data.response;
+                }
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
