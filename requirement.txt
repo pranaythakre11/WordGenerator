@@ -1,2 +1,6 @@
 openai
 cors
+pandas
+numpy
+flask
+dotenv
